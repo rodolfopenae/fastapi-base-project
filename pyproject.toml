@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "baseproject"
+version = "0.1.0"
+description = "base project setup"
+authors = ["RodolfoPena <rodolfo.p.ing@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.99.0"
+uvicorn = "^0.22.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
