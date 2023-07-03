@@ -1,8 +1,12 @@
 from fastapi import FastAPI
+from api.v1.users import router as users_v1
+from kernel.infraestructure.postgres_database import Base, engine
 
-app = FastAPI()
+Base.metadata.create_all(engine)
+
+app = FastAPI(
+    title="Observers"
+)
 
 
-@app.get('/')
-async def index():
-    return 'hello world'
+app.include_router(users_v1, tags=['User'])
