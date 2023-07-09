@@ -12,7 +12,7 @@ from users.infraestructure.user_interface import UserInterface
 from kernel.infraestructure.postgres_database import session
 from typing import List, Annotated
 from workspaces.domain.workspace_model import Workspace
-# from auth.infraestructure.utils import get_current_user
+from auth.infraestructure.utils import get_current_user
 from workspaces.infraestructure.workspace_interface import WorkspaceInterface
 from workspaces.application.workspace_use_cases import AddWorkspace
 
@@ -27,10 +27,15 @@ async def create_user(user: UserRequest) -> User:
         user_id =user['id']
         interface = WorkspaceInterface(session)
         workspace = AddWorkspace(interface).execute(title, user_id)
-    return user
+        return user
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail='Username already exists'
+        )
         
 @router.get('/users/', response_model=List[UserResponse])
-async def get_users() -> List[User]:
+async def get_users(current_user : Annotated[User, Security(get_current_user,scopes=['admin'] )]) -> List[User]:
     interface = UserInterface(session)
     users = GetUsers(interface).execute()
     return users
