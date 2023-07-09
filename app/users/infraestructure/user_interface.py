@@ -1,6 +1,7 @@
 from kernel.domain.base_repository import BaseRepository
 from users.domain.user_model import User
 from .user_table import UserTable
+from workspaces.infraestructure.workspace_table import WorkspaceTable
 from typing import List
 
 class UserInterface(BaseRepository):

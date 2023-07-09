@@ -1,13 +1,13 @@
 from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
-from kernel.infraestructure.postgres_database import Base, engine
+from kernel.infraestructure.postgres_database import Base
 
 class UserTable(Base):
-    __tablename__= 'user'
+    __tablename__= 'users'
     
     id = Column(Integer, autoincrement=True, primary_key= True, index= True)
     username = Column(String, unique=True)
     password = Column(String)
     role = Column(String)
     
-    # workspace = relationship("Workspace", back_populates='owner')
+    workspace = relationship("WorkspaceTable", back_populates='user')

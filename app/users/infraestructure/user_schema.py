@@ -10,6 +10,7 @@ class UserRequest(BaseModel):
 
 class UserResponse(BaseModel):
     username: str
+    id: int
     
     class Config:
         orm_mode = True
